@@ -2,6 +2,7 @@ import string
 from ast import literal_eval
 import random, time
 from decimal import Decimal, ROUND_UP
+import math
 
 
 def random_date(start, end):
@@ -136,11 +137,12 @@ import json
 import os
 
 def gen_json(num_bills, templates):
+    numdigits = math.floor(math.log10(num_bills) + 1)
     for tmp in templates:
         datadir = "bills//data//" + tmp
         if not os.path.exists(datadir):
             os.makedirs(datadir)
         for i in range(num_bills):
             result = label_randomizer()
-            with open(datadir+'//'+str(i+1)+'.json','w') as json_file:
+            with open(datadir+'//Invoice'+str(i+1).zfill(numdigits)+'.json','w') as json_file:
                 json.dump(result, json_file)
